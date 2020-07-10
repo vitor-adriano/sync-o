@@ -1,0 +1,49 @@
+:root {
+  --background-color: #fefefe;
+  --text-color: #333333;
+  --theme-color-a: #2b0548;
+  --theme-color-b: #4630ab;
+  --theme-color-c: #6669c5;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  outline: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background: var(--background-color);
+  color: var(--text-color);
+}
+
+body,
+button,
+input,
+textarea,
+select,
+option {
+  font-family: 'Poppins', Arial, Helvetica, sans-serif;
+}
+
+a:hover,
+button:hover,
+label:hover,
+select:hover {
+  cursor: pointer;
+}
+
+:disabled {
+  cursor: not-allowed;
+}
+
+ul {
+  list-style: none;
+}

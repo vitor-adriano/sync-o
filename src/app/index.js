@@ -8,8 +8,6 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes />
-
-      <select name="" id="" />
     </BrowserRouter>
   )
 }

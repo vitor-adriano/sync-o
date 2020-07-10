@@ -1,0 +1,19 @@
+.message_text{
+    padding: 9px 14px;
+    font-size: 1.6rem;
+    margin-bottom:5px;
+}
+
+.you_message .message_text{
+    background: #6669c5;
+    color:"white";
+    border: 1px solid #6669c5;
+    border-radius: 14px 14px 0 14px;
+}
+
+.other_message .message_text{
+    background: #909090;
+    color:"black";
+    border:1px solid #909090;
+    border-radius: 14px 14px 14px 0;
+}

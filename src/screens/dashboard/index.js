@@ -10,7 +10,7 @@ const Dashboard = ({location}) => {
   useEffect(() => {
     
     const carregar = async () => {
-      
+
     }
     carregar();
     
@@ -43,6 +43,14 @@ const Dashboard = ({location}) => {
   };
 
     return <div>
+          <div id="menu" >
+            <ul>
+              <li><a href="./dashboard">Perfil</a></li>
+              <li><a href="./profile">Perfil</a></li>
+              <li><a href="./chat">Chat</a></li>
+              <li><a href="#" >Sair</a></li>
+            </ul>
+          </div>
         <Board data={data}   
             style={{ background: 'linear-gradient(180deg, rgba(43,5,72,1) 0%, rgba(70,48,171,1) 42%, rgba(176,128,255,1) 100%)'}} 
             editable={true}

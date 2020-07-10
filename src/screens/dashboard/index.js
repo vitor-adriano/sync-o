@@ -41,7 +41,6 @@ class Dashboard extends React.Component {
   render() {
 
     return <div>
-        <div style={}></div>
         <Board data={this.state.data}   
             style={{ background: 'linear-gradient(180deg, rgba(43,5,72,1) 0%, rgba(70,48,171,1) 42%, rgba(176,128,255,1) 100%)'}} 
             editable={true}

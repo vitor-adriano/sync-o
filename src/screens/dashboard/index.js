@@ -33,9 +33,6 @@ class Dashboard extends React.Component {
       }
     };
   }
-  onLaneAdd(){
-    alert('tesdte');
-  }
 
   
   render() {

@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
+//import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -37,6 +37,10 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
+  logo_p:{
+    width:100, 
+    height: 100,
+  },
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
@@ -44,10 +48,22 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-}));
+})); 
 
-export default function SignIn() {
+
+
+const SingIn = ({history}) => {
   const classes = useStyles();
+
+  const handleSubmit = async event => {
+    event.preventDefault();
+
+    const resposta = await fetch('https://sync-o-back.herokuapp.com/users/login', { method : 'POST',  body: JSON.stringify(event.target.email.value) });
+    const respostaJson = await resposta.json();
+
+    localStorage.setItem('user', JSON.stringify(respostaJson));
+    history.push({ pathname: '/dashboard', props: respostaJson});
+  };
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -55,19 +71,19 @@ export default function SignIn() {
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-          </Avatar>
+          <img className={classes.logo_p} src={'./style/logo.png'} alt="sinc-o">
+          </img>
           <Typography component="h1" variant="h5">
-            Sign in
+            Login
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} onSubmit={handleSubmit} >
             <TextField
               variant="outlined"
               margin="normal"
               required
               fullWidth
               id="email"
-              label="Email Address"
+              label="e-mail (ou teste@synco)"
               name="email"
               autoComplete="email"
               autoFocus
@@ -78,14 +94,14 @@ export default function SignIn() {
               required
               fullWidth
               name="password"
-              label="Password"
+              label="senha"
               type="password"
               id="password"
               autoComplete="current-password"
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
+              label="Lembrar"
             />
             <Button
               type="submit"
@@ -94,17 +110,17 @@ export default function SignIn() {
               color="primary"
               className={classes.submit}
             >
-              Sign In
+              Entrar
             </Button>
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
-                  Forgot password?
+                  Esqueceu a senha?
                 </Link>
               </Grid>
               <Grid item>
                 <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                  {"Ainda não tem conta? Crie aqui."}
                 </Link>
               </Grid>
             </Grid>
@@ -114,3 +130,5 @@ export default function SignIn() {
     </Grid>
   );
 }
+
+export default SingIn;

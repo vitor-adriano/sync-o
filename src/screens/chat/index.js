@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -6,8 +6,9 @@ import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import SendIcon from '@material-ui/icons/Send';
-import ArrowBackTwoToneIcon from '@material-ui/icons/ArrowBackTwoTone';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import Ballow from './ballom';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,7 +20,8 @@ const useStyles = makeStyles((theme) => ({
   section: {
     display: "flex",
     flexDirection: 'column',
-    overflowY: 'scroll'
+    overflowY: 'hidden',
+
   },
   main: {
     marginTop: theme.spacing(8),
@@ -45,45 +47,36 @@ const useStyles = makeStyles((theme) => ({
       theme.palette.type === 'light' ? "#6669c5" : "#6669c5",
   },
   header: {
+    display:"flex",
+    justifyContent:"flex-end",
     padding: theme.spacing(1, 1),
     height: '64px',
     position: 'relative',
+    textAlign:"center",
     backgroundColor:
       theme.palette.type === 'light' ? "#6669c5" : "#6669c5",
   },
 }));
 
-export default function StickyFooter() {
+export default function StickyFooter({history}) {
 
-  const my = "Wesley"
+  const handleback = () =>{
+    history.push('/dashboard');
+  }
   const props = [
     {
       "nome": "Julio",
       "data": "Oi!",
+      "color": "#6669c5",
+      "cargo": "ceo"
     },
     {
       "nome": "Julio",
-      "data": "Oi!"
+      "data": "Podemos realizar um projeto?",
+      "color": "#6669c5",
+      "cargo": "ceo"
     },
-    {
-      "nome": "Julio",
-      "data": "Oi!"
-    }, {
-      "nome": "Wesley",
-      "data": "Oi!"
-    }
-    , {
-      "nome": "Wesley",
-      "data": "Oi!"
-    }
-    , {
-      "nome": "Wesley",
-      "data": "Oi!"
-    }
-    , {
-      "nome": "Wesley",
-      "data": "Oi!"
-    }
+    
 
   ]
 
@@ -92,11 +85,12 @@ export default function StickyFooter() {
   return (
     <div className={classes.root}>
       <header className={classes.header}>
-        <Button variant="contained" className={classes.button} ><ArrowBackTwoToneIcon /></Button>
+        
+        <Button variant="contained" className={classes.button} ><ArrowForwardIosIcon /></Button>
 
       </header>
       <section className={classes.section}>
-        {props.map((elem) => <Ballow data={elem} my={my} ></Ballow>)}
+        {props.map((elem) => <Ballow data={elem} ></Ballow>)}
       </section>
       <footer className={classes.footer}>
 
@@ -107,7 +101,7 @@ export default function StickyFooter() {
           placeholder="Tente digitar aqui!"
           variant="filled"
         />
-        <Button variant="contained" className={classes.button} ><SendIcon /></Button>
+        <Button variant="contained" className={classes.button} onClick={handleback} ><SendIcon /></Button>
 
       </footer>
     </div>

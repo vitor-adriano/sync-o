@@ -1,6 +1,7 @@
 import React from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 
+import Navigation from '../components/navigation'
 import * as Screen from '../screens'
 
 const PrivateRoute = ({ component: Component, ...baseProps }) => {
@@ -10,7 +11,12 @@ const PrivateRoute = ({ component: Component, ...baseProps }) => {
       render={props => {
         const user = JSON.parse(localStorage.getItem('user'))
         if (user) {
-          return <Component {...props} />
+          return (
+            <>
+              <Navigation />
+              <Component {...props} />
+            </>
+          )
         } else {
           return <Redirect to={'/'} />
         }

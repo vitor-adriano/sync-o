@@ -1,21 +1,19 @@
-
-
-import React from 'react';
+import React from 'react'
 //import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import TextField from '@material-ui/core/TextField'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Checkbox from '@material-ui/core/Checkbox'
+import Link from '@material-ui/core/Link'
+import Paper from '@material-ui/core/Paper'
+import Grid from '@material-ui/core/Grid'
+import Typography from '@material-ui/core/Typography'
+import { makeStyles } from '@material-ui/core/styles'
 
+import api from '../../services/api'
 
-
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     height: '100vh',
   },
@@ -23,7 +21,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundImage: 'url(./style/img001.png)',
     backgroundRepeat: 'no-repeat',
     backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+      theme.palette.type === 'light'
+        ? theme.palette.grey[50]
+        : theme.palette.grey[900],
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   },
@@ -37,8 +37,8 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
-  logo_p:{
-    width:100, 
+  logo_p: {
+    width: 100,
     height: 100,
   },
   form: {
@@ -48,22 +48,26 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-})); 
+}))
 
-
-
-const SingIn = ({history}) => {
-  const classes = useStyles();
+const SingIn = ({ history }) => {
+  const classes = useStyles()
 
   const handleSubmit = async event => {
-    event.preventDefault();
+    event.preventDefault()
 
-    const resposta = await fetch('https://sync-o-back.herokuapp.com/users/login', { method : 'POST',  body: JSON.stringify(event.target.email.value) });
-    const respostaJson = await resposta.json();
+    try {
+      const resposta = await api('post', '/login', {
+        email: event.target.email.value,
+      })
+      console.log(resposta)
 
-    localStorage.setItem('user', JSON.stringify(respostaJson));
-    history.push({ pathname: '/dashboard', props: respostaJson});
-  };
+      localStorage.setItem('user', JSON.stringify(resposta))
+      history.push('/dashboard')
+    } catch (e) {
+      console.error(e)
+    }
+  }
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -71,45 +75,31 @@ const SingIn = ({history}) => {
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
-          <img className={classes.logo_p} src={'./style/logo.png'} alt="sinc-o">
-          </img>
+          <img
+            className={classes.logo_p}
+            src={'./style/logo.png'}
+            alt="sinc-o"></img>
           <Typography component="h1" variant="h5">
-            Login
+            Conectar
           </Typography>
-          <form className={classes.form} onSubmit={handleSubmit} >
+          <form className={classes.form} onSubmit={handleSubmit}>
             <TextField
               variant="outlined"
               margin="normal"
               required
               fullWidth
               id="email"
-              label="e-mail (ou teste@synco)"
+              label="E-mail (admin@admin)"
               name="email"
               autoComplete="email"
               autoFocus
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="senha"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Lembrar"
             />
             <Button
               type="submit"
               fullWidth
               variant="contained"
               color="primary"
-              className={classes.submit}
-            >
+              className={classes.submit}>
               Entrar
             </Button>
             <Grid container>
@@ -120,7 +110,7 @@ const SingIn = ({history}) => {
               </Grid>
               <Grid item>
                 <Link href="#" variant="body2">
-                  {"Ainda não tem conta? Crie aqui."}
+                  {'Ainda não tem conta? Crie aqui.'}
                 </Link>
               </Grid>
             </Grid>
@@ -128,7 +118,7 @@ const SingIn = ({history}) => {
         </div>
       </Grid>
     </Grid>
-  );
+  )
 }
 
-export default SingIn;
+export default SingIn
